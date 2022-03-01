@@ -32,8 +32,8 @@ app.post("/contact", function (req, res) {
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
         to: process.env.A3,
-        subject: 'Portfolio contact', // Subject line
-        text:  'Hello', // plaintext body
+        subject: `Message from: ${req.body.contact.name}`, // Subject line
+        text:  `${req.body.contact.email}, ${req.body.contact.message}`, // plaintext body
     };
 
     // send mail with defined transport object
