@@ -1,13 +1,56 @@
-require('dotenv').config()
+
 const express = require('express');
-const app = express();
-const router = express.Router;
 const cors = require('cors');
-app.use(cors);
 const nodemailer = require('nodemailer');
+const app = express();
+require('dotenv').config()
+app.use(cors());
+app.use(express.json());
 
-const PORT = 9000
+// Create the transporter with the required configuration for Outlook
+const transporter = nodemailer.createTransport({
+    pool: true,
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587, // port for secure SMTP
+    tls: {
+       ciphers:'SSLv3',
+       rejectUnauthorized: false
+    },
+    auth: {
+        user: process.env.A1,
+        pass: process.env.A2
+    }
+})
 
-app.listen(PORT, ()=> {
+transporter.verify((error) => {
+    if (error) {console.log(error);} 
+    else {console.log("Ready to Send");}
+  });
+
+app.post("/contact", function (req, res) {
+    const mailOptions = {
+        from: process.env.A1, // sender address (who sends)
+        to: process.env.A3,
+        subject: 'Portfolio contact', // Subject line
+        text:  'Hello', // plaintext body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            res.json({status: "fail"})
+            return console.log(error);}
+        console.log('Message sent: ' + info.response);
+        res.json({status: "success"})
+    });
+});
+
+// setup e-mail data, even with unicode symbols
+
+
+  const PORT = 9000
+
+  app.listen(PORT, ()=> {
     console.log(`App running on port ${PORT} `)
 })
