@@ -1,13 +1,14 @@
+//const path = require('path')
 const express = require('express');
-const cors = require('cors');
-const nodemailer = require('nodemailer');
 const app = express();
-const path = require('path')
-const buildPath = path.join(__dirname, '..', 'build')
-require('dotenv').config()
-app.use(cors());
+const nodemailer = require('nodemailer');
+//const buildPath = path.join(__dirname, '..', 'build')
 app.use(express.json());
-app.use(express.static(buildPath));
+//app.use(express.static(buildPath));
+require('dotenv').config()
+const cors = require('cors');
+app.use(cors());
+
 
 // Create the transporter with the required configuration for Outlook
 const transporter = nodemailer.createTransport({
@@ -34,8 +35,8 @@ app.post("/contact", function (req, res) {
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
         to: process.env.A3,
-        subject: 'Hello', // Subject line
-        text:  'working again', // plaintext body
+        subject: 'Portfolio submission', // Subject line
+        text:  `${req.body.name}; ${req.body.email}: ${req.body.message}`, // plaintext body
     };
 
     // send mail with defined transport object
@@ -45,15 +46,15 @@ app.post("/contact", function (req, res) {
             return console.log(error);}
         console.log('Message sent: ' + info.response);
         res.json({status: "success"})
+        window.alert('Thank you!')
     });
 });
 
-/*
-const PORT = 9000;
+
+const PORT = 3002;
 
 app.listen(PORT, ()=>{
 
     console.log('server running ')
 })
 
-*/
