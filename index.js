@@ -36,8 +36,8 @@ app.post("/contact", function (req, res) {
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
         to: process.env.A3,
-        subject:  `${res.body.contact.name}`, // plaintext body
-        text:  `${res.body.contact.name}; ${res.body.contact.email}: ${res.body.contact.message}`, // plaintext body
+        subject:  `${req.body.contact.name}`, // plaintext body
+        text:  `${req.body.contact.name}; ${req.body.contact.email}: ${req.body.contact.message}`, // plaintext body
     };
     console.log(res.body)
 
