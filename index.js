@@ -51,10 +51,7 @@ app.post("/contact", function (req, res) {
 });
 
 
-const PORT = 3002;
+const port_number = process.env.PORT || 8080;
+app.listen(port_number);
 
-app.listen(PORT, ()=>{
-
-    console.log('server running ')
-})
 
