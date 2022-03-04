@@ -31,8 +31,8 @@ app.post("/contact", function (req, res) {
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
         to: process.env.A3,
-        subject: `Message from: ${req.body.contact.name}`, // Subject line
-        text:  `${req.body.contact.email}, ${req.body.contact.message}`, // plaintext body
+        subject: 'Hello', // Subject line
+        text:  'working again', // plaintext body
     };
 
     // send mail with defined transport object
@@ -44,3 +44,13 @@ app.post("/contact", function (req, res) {
         res.json({status: "success"})
     });
 });
+
+/*
+const PORT = 9000;
+
+app.listen(PORT, ()=>{
+
+    console.log('server running ')
+})
+
+*/
