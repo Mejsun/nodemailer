@@ -46,11 +46,3 @@ app.post("/contact", function (req, res) {
     });
 });
 
-// setup e-mail data, even with unicode symbols
-
-
-  const PORT = 9000
-
-  app.listen(PORT, ()=> {
-    console.log(`App running on port ${PORT} `)
-})
