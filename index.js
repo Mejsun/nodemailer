@@ -46,7 +46,6 @@ app.post("/contact", function (req, res) {
             return console.log(error);}
         console.log('Message sent: ' + info.response);
         res.json({status: "success"})
-        window.alert('Thank you!')
     });
 });
 
