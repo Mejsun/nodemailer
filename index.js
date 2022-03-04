@@ -8,6 +8,7 @@ app.use(express.json());
 require('dotenv').config()
 const cors = require('cors');
 app.use(cors());
+const { body, validationResult } = require('express-validator')
 
 
 // Create the transporter with the required configuration for Outlook
@@ -31,7 +32,10 @@ transporter.verify((error) => {
     else {console.log("Ready to Send");}
   });
 
-app.post("/contact", function (req, res) {
+app.post("/contact", 
+        body('req.body.contact.email').isEmail(),
+        body('req.body.contact.name').isNumeric(false),
+        function (req, res) {
     //let {name, email, message} = res.body
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
@@ -39,7 +43,7 @@ app.post("/contact", function (req, res) {
         subject:  `${req.body.contact.name}`, // plaintext body
         text:  `${req.body.contact.name}; ${req.body.contact.email}: ${req.body.contact.message}`, // plaintext body
     };
-    console.log(res.body)
+    console.log(body)
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
