@@ -32,13 +32,14 @@ transporter.verify((error) => {
   });
 
 app.post("/contact", function (req, res) {
-    let {name, email, message} = req.body
+    //let {name, email, message} = res.body
     const mailOptions = {
         from: process.env.A1, // sender address (who sends)
         to: process.env.A3,
         subject: 'Portfolio submission', // Subject line
-        text:  `${name}; ${email}: ${message}`, // plaintext body
+        text:  `${res.body.name}; ${res.body.email}: ${res.body.message}`, // plaintext body
     };
+    console.log(res.body)
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
