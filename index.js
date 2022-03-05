@@ -1,10 +1,7 @@
-//const path = require('path')
 const express = require('express');
 const app = express();
 const nodemailer = require('nodemailer');
-//const buildPath = path.join(__dirname, '..', 'build')
 app.use(express.json());
-//app.use(express.static(buildPath));
 require('dotenv').config()
 const cors = require('cors');
 app.use(cors());
@@ -37,8 +34,6 @@ app.post("/contact", function (req, res) {
         subject:  `${req.body.contact.name}`, // plaintext body
         text:  `${req.body.contact.name}; ${req.body.contact.email}: ${req.body.contact.message}`, // plaintext body
     };
-    console.log(body)
-
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
@@ -52,5 +47,3 @@ app.post("/contact", function (req, res) {
 
 const port_number = process.env.PORT || 8080;
 app.listen(port_number);
-
-
