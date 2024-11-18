@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 
 async function main(){
 
-
     // Create the transporter with the required configuration for Outlook
     const transporter = nodemailer.createTransport({
         pool: true,
@@ -47,7 +46,7 @@ async function main(){
 main().catch(console.error)
 
 
-/*
+
 router.post("/contact", (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -68,5 +67,5 @@ router.post("/contact", (req, res) => {
       }
     });
   });
-  */
+  
   
